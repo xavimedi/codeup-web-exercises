@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Working With Data Types, Operators, and Variables</title>
 </head>
 <body>
-    <p> You have rented some movies for your kids:
+    <p>
+        1) You have rented some movies for your kids:
         <ul>
             <li>The little mermaid (for 3 days),</li>
             <li>Brother Bear (for 5 days, they love it),</li>
@@ -24,7 +25,7 @@
         </p>
     </p>
     <p>
-        Suppose you're working as a contractor for 3 companies:<br>
+        2) Suppose you're working as a contractor for 3 companies:<br>
         Google, Amazon and Facebook, they pay you a different rate per hour.<br>
         <ul>
         <li>Google pays $400,</li>
@@ -49,7 +50,7 @@
         total = 7420
     </p>
     <p>
-        A student can be enrolled in a class only if:<br>
+        3) A student can be enrolled in a class only if:<br>
         The class is not full and the class schedule does not conflict with her current schedule.<br>
     </p>
     <p>
@@ -58,7 +59,28 @@
         const studentCan = classSchedule && !classFull
     </p>
     <p>
-
+        4) A product offer can be applied only if a person buys more than 2 items,<br>
+        and the offer has not expired. Premium members do not need to buy a specific amount of products<br>
+        <br>
+            const member = true<br>
+            const itemsMin = 2<br>
+        <br>
+            var customer1Membership = !member<br>
+            var customer1Items = 5<br>
+        <br>
+            var customer2Membership = member<br>
+            var customer2Items = 1<br>
+        <br>
+            var customer3Membership = !member<br>
+            var customer3Items = 1<br>
+        <br>
+            const customer1 = customer1Membership || customer1Items > itemsMin<br>
+            const customer2 = customer2Membership || customer2Items > itemsMin<br>
+            const customer3 = customer3Membership || customer3Items > itemsMin<br>
+        <br>
+        customer1 = true<br>
+        customer2 = true<br>
+        customer3 = false<br>
     </p>
 </body>
 </html>
