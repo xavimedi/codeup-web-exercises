@@ -29,7 +29,7 @@ alert("Let's check if you can take that Codeup Class.")
     let canAttend = studentAvailability && classOpen
 alert("It is " + canAttend + " that you can attend!")
 
-alert("I see you have some of my discounted good and services in your shopping cart.")
+alert("I see you have some of my discounted goods and services in your shopping cart.")
     let membership = confirm("Are you a member of my store?")
     let custItems = prompt("Okay, and how many items are you attempting to purchase?")
     let offer = confirm("Is the discount still valid?")
