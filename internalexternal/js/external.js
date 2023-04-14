@@ -34,11 +34,12 @@ console.log("hello from external JavaScript!")
     let membership = confirm("Are you a member of my store?")
     let custItems = prompt("Okay, and how many items are you attempting to purchase?")
     let offer = confirm("Is the discount still valid?")
-        function grocery(offer, membership, custItems) {
-            if (offer === true && (membership === true || custItems >= 2)) {
-                alert("Alright, that will be $56.89, please. Cash or card?")
-            } else {
-                return alert("Exit the premises immediately.")
-            }
-        }
+function grocery(offer, membership, custItems){
+    if(offer === true && (membership === true || custItems >= 2)) {
+        alert("Alright, that will be $56.89, please. Cash or card?")
+    }
+    else{
+        return alert("Exit the premises immediately.")
+    }
+}
 grocery(offer, membership, custItems)
