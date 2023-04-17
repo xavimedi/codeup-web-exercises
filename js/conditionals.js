@@ -22,32 +22,32 @@
  * console.logging the function's return value
  */
 
-// function analyzeColor(color) {
-//
-//     if (color.toLowerCase() === "red") {
-//         return ((color + " is the color of strawberries!"));
-//     }
-//     else if (color.toLowerCase() === "orange") {
-//         return ((color + " is the color of oranges!"));
-//     }
-//     else if (color.toLowerCase() === "yellow") {
-//         return ((color + " is the color of bananas!"));
-//     }
-//     else if (color.toLowerCase() === "green") {
-//         return ((color + " is the color of the grass!"));
-//     }
-//     else if (color.toLowerCase() === "blue") {
-//         return ((color + " is the color of blueberries!"));
-//     }
-//     else if (color.toLowerCase() === "indigo") {
-//             return ((color + " is the color of indigo dye!"));
-//     }
-//     else if (color.toLowerCase() === "violet") {
-//                 return ((color + " is the color of lilacs!"));
-//             }
-//     else (alert("I don't know that one, sorry."))
-// }
-// console.log(analyzeColor("violet"))
+function analyzeColor(color) {
+
+    if (color.toLowerCase() === "red") {
+        return ((color + " is the color of strawberries!"));
+    }
+    else if (color.toLowerCase() === "orange") {
+        return ((color + " is the color of oranges!"));
+    }
+    else if (color.toLowerCase() === "yellow") {
+        return ((color + " is the color of bananas!"));
+    }
+    else if (color.toLowerCase() === "green") {
+        return ((color + " is the color of the grass!"));
+    }
+    else if (color.toLowerCase() === "blue") {
+        return ((color + " is the color of blueberries!"));
+    }
+    else if (color.toLowerCase() === "indigo") {
+        return ((color + " is the color of indigo dye!"));
+    }
+    else if (color.toLowerCase() === "violet") {
+                return ((color + " is the color of lilacs!"));
+            }
+    else (alert("I don't know that one, sorry."))
+}
+console.log(analyzeColor("violet"))
 
 // Don't change the next two lines!
 // These lines create two variables for you:
@@ -69,32 +69,32 @@
  * Comment out the code above, and refactor your function to use a switch-case statement
  */
 
-// let color = prompt("What's your fav color?")
-// switch (color) {
-//
-//     case("red"):
-//         console.log((color + " is the color of strawberries!"))
-//     break;
-//
-//     case("orange"):
-//         console.log((color + " is the color of oranges"))
-//         break;
-//
-//     case("yellow"):
-//         console.log((color + " is the color of bananas!"))
-//         break;
-//
-//     case("green"):
-//         console.log((color + " is the color of grass!"))
-//         break;
-//
-//     case("blue"):
-//         console.log((color + " is the color of blueberries!"))
-//         break;
-//
-//     default:
-//         (alert("I don't know that one, sorry."))
-// }
+let color = prompt("What's your fav color?")
+switch (color) {
+
+    case("red"):
+        console.log((color + " is the color of strawberries!"))
+    break;
+
+    case("orange"):
+        console.log((color + " is the color of oranges"))
+        break;
+
+    case("yellow"):
+        console.log((color + " is the color of bananas!"))
+        break;
+
+    case("green"):
+        console.log((color + " is the color of grass!"))
+        break;
+
+    case("blue"):
+        console.log((color + " is the color of blueberries!"))
+        break;
+
+    default:
+        (alert("I don't know that one, sorry."))
+}
 
 /**
  * TODO:
@@ -155,8 +155,16 @@ let discountCode = prompt("What is your discount code?")
  * and alerts to display to the user what their lucky number was, what their
  * price before the discount was, and what their price after the discount is.
  */
+
 // Generate a random number between 0 and 6
-// var luckyNumber = Math.floor(Math.random() * 6);
+
+
+
+let luckyNumber = Math.floor(Math.random() * 6);
+let subtotal2 = prompt("What is the subtotal of your bill?");
+alert("Your lucky number is " + luckyNumber + ", changing your subtotal of $" +
+    subtotal2 + " to a discounted total of " + calculateTotal(subtotal2, discountCode) + "!")
+
 
 /**
  * TODO:
