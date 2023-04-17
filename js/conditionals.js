@@ -54,15 +54,16 @@ console.log(analyzeColor("violet"))
 // - `colors`: a list of the colors of the rainbow
 // - `randomColor`: contains a single random color value from the list (this
 //                  will contain a different color every time the page loads)
-// var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
-// var randomColor = colors[Math.floor(Math.random() * colors.length)];
+const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
+const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
 /**
  * TODO:
  * Pass the `randomColor` variable to your 'analyzeColor' function and console.log the results.
  * You should see a different message every time you refresh the page
  */
 
-//console.log(analyzeColor(randomColor));
+console.log(analyzeColor(randomColor));
 
 /**
  * TODO:
@@ -103,8 +104,8 @@ switch (color) {
  * function to show it to the user.
  */
 
-// let colorInput = prompt("What's your favorite color?");
-// alert (analyzeColor(colorInput));
+let colorInput = prompt("What's your favorite color?");
+alert (analyzeColor(colorInput));
 
 /* ########################################################################## */
 
@@ -128,25 +129,26 @@ switch (color) {
  * return value.
  */
 
-function calculateTotal(subtotal, discountCode) {
-    return subtotal * discountCode
-}
-let subtotal = prompt("What is the cost of your item?")
-let discountCode = prompt("What is your discount code?")
-    switch(discountCode){
-        case "1": alert("Your total is $" + calculateTotal(subtotal, .9) + ". 10% off!")
-            break;
-        case "2": alert("Your total is $" + calculateTotal(subtotal, .75) + ". 25% off!")
-            break;
-        case "3": alert("Your total is $" + calculateTotal(subtotal, .65) + ". 35% off!")
-            break;
-        case "4": alert("Your total is $" + calculateTotal(subtotal, .5) + ". 50% off!")
-            break;
-        case "5": alert("Your total is $" + calculateTotal(subtotal, 0) + ". 100% off!")
-            break;
-        default: alert("Your total is $" + subtotal +". Sorry, your code is invalid." )
-            break;
+function calculateTotal(discountCode, subtotal) {
+    switch(discountCode) {
+        case 1:
+            return (subtotal - (subtotal * .1));
+        case 2:
+            return (subtotal - (subtotal * .25));
+        case 3:
+            return (subtotal - (subtotal * .35));
+        case 4:
+            return (subtotal - (subtotal * .5));
+        case 5:
+            return (subtotal - subtotal);
+        default:
+            return subtotal
     }
+}
+console.log(calculateTotal(0, 100))
+console.log(calculateTotal(4, 100))
+console.log(calculateTotal(5, 100))
+
     /**
  * TODO:
  * Uncomment the line below to generate a random number between 0 and 5.
@@ -163,8 +165,7 @@ let discountCode = prompt("What is your discount code?")
 let luckyNumber = Math.floor(Math.random() * 6);
 let subtotal2 = prompt("What is the subtotal of your bill?");
 alert("Your lucky number is " + luckyNumber + ", changing your subtotal of $" +
-    subtotal2 + " to a discounted total of " + calculateTotal(subtotal2, discountCode) + "!")
-
+    subtotal2 + " to a discounted total of " + calculateTotal(luckyNumber, subtotal2) + "!")
 
 /**
  * TODO:
@@ -184,3 +185,37 @@ alert("Your lucky number is " + luckyNumber + ", changing your subtotal of $" +
  * Can you refactor your code to use functions?
  * HINT: The way we prompt for a value could be improved
  */
+
+function numberCheck(numberString){
+    if(!isNaN(parseInt(numberString))) {
+        let number = parseInt(numberString);
+        let even = number % 2 === 0;
+        let positive = number >= 0;
+        let zero = number === 0
+        if (even) {
+            alert(number + " is even!");
+        } else {
+            alert(number + " is odd!");
+        }
+        alert("Your number with 100 added to it is " + ((number * 1) + 100))
+
+        if (positive && !zero) {
+            alert(number + " is positive!");
+        } else if (!positive && !zero) {
+            alert(number + " is negative!");
+        } else if (zero) {
+            alert(zero + " is neither positive or negative.")
+        }
+    } else {
+        alert(numberString + " is not a number, sorry.")
+
+    }
+}
+
+let askNumber= confirm("Would you like to enter a number?");
+if(askNumber){
+    numberCheck(prompt("Enter a number:"));
+}
+else{
+    alert("Goodbye!")
+}
