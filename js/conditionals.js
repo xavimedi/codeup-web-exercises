@@ -28,23 +28,23 @@ function analyzeColor(color) {
         return ((color + " is the color of strawberries!"));
     }
     else if (color.toLowerCase() === "orange") {
-        return ((color + " is the color of oranges!"));
+        return (color + " is the color of oranges!");
     }
     else if (color.toLowerCase() === "yellow") {
-        return ((color + " is the color of bananas!"));
+        return (color + " is the color of bananas!");
     }
     else if (color.toLowerCase() === "green") {
-        return ((color + " is the color of the grass!"));
+        return (color + " is the color of the grass!");
     }
     else if (color.toLowerCase() === "blue") {
-        return ((color + " is the color of blueberries!"));
+        return (color + " is the color of blueberries!");
     }
     else if (color.toLowerCase() === "indigo") {
-        return ((color + " is the color of indigo dye!"));
+        return (color + " is the color of indigo dye!");
     }
     else if (color.toLowerCase() === "violet") {
-                return ((color + " is the color of lilacs!"));
-            }
+        return (color + " is the color of lilacs!");
+    }
     else (alert("I don't know that one, sorry."))
 }
 console.log(analyzeColor("violet"))
@@ -54,6 +54,7 @@ console.log(analyzeColor("violet"))
 // - `colors`: a list of the colors of the rainbow
 // - `randomColor`: contains a single random color value from the list (this
 //                  will contain a different color every time the page loads)
+
 const colors = ['red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet'];
 const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
@@ -70,32 +71,36 @@ console.log(analyzeColor(randomColor));
  * Comment out the code above, and refactor your function to use a switch-case statement
  */
 
-let color = prompt("What's your fav color?")
-switch (color) {
+let color = randomColor
+    switch (color){
+        case("red"):
+            console.log(color+ " is the color of strawberries!");
+            break;
+        case("orange"):
+            console.log(color+ " is the color of oranges");
+            break;
 
-    case("red"):
-        console.log((color + " is the color of strawberries!"))
-    break;
+        case("yellow"):
+            console.log(color + " is the color of bananas!");
+            break;
 
-    case("orange"):
-        console.log((color + " is the color of oranges"))
-        break;
+        case("green"):
+            console.log(color + " is the color of grass!");
+            break;
 
-    case("yellow"):
-        console.log((color + " is the color of bananas!"))
-        break;
+        case("blue"):
+            console.log(color+ " is the color of blueberries!");
+            break;
 
-    case("green"):
-        console.log((color + " is the color of grass!"))
-        break;
+        default:
+            console.log("I don't know that one, sorry.");
+    }
 
-    case("blue"):
-        console.log((color + " is the color of blueberries!"))
-        break;
-
-    default:
-        (alert("I don't know that one, sorry."))
-}
+console.log(analyzeColor("red"));
+console.log(analyzeColor("orange"));
+console.log(analyzeColor("yellow"));
+console.log(analyzeColor("green"));
+console.log(analyzeColor("blue"));
 
 /**
  * TODO:
@@ -104,8 +109,8 @@ switch (color) {
  * function to show it to the user.
  */
 
-let colorInput = prompt("What's your favorite color?");
-alert (analyzeColor(colorInput));
+// let colorInput = prompt("What's your favorite color?");
+// alert (analyzeColor(colorInput));
 
 /* ########################################################################## */
 
@@ -149,7 +154,7 @@ console.log(calculateTotal(0, 100))
 console.log(calculateTotal(4, 100))
 console.log(calculateTotal(5, 100))
 
-    /**
+/**
  * TODO:
  * Uncomment the line below to generate a random number between 0 and 5.
  * (In this line of code, 0 is inclusive, and 6 is exclusive)
@@ -165,7 +170,7 @@ console.log(calculateTotal(5, 100))
 let luckyNumber = Math.floor(Math.random() * 6);
 let subtotal2 = prompt("What is the subtotal of your bill?");
 alert("Your lucky number is " + luckyNumber + ", changing your subtotal of $" +
-    subtotal2 + " to a discounted total of " + calculateTotal(luckyNumber, subtotal2) + "!")
+    subtotal2 + " to a discounted total of " + calculateTotal(luckyNumber, subtotal2) + "!");
 
 /**
  * TODO:
@@ -197,17 +202,17 @@ function numberCheck(numberString){
         } else {
             alert(number + " is odd!");
         }
-        alert("Your number with 100 added to it is " + ((number * 1) + 100))
+        alert("Your number with 100 added to it is " + ((number * 1) + 100));
 
         if (positive && !zero) {
             alert(number + " is positive!");
         } else if (!positive && !zero) {
             alert(number + " is negative!");
         } else if (zero) {
-            alert(zero + " is neither positive or negative.")
+            alert(zero + " is neither positive or negative.");
         }
     } else {
-        alert(numberString + " is not a number, sorry.")
+        alert(numberString + " is not a number, sorry.");
 
     }
 }
@@ -217,5 +222,5 @@ if(askNumber){
     numberCheck(prompt("Enter a number:"));
 }
 else{
-    alert("Goodbye!")
+    alert("Goodbye!");
 }
