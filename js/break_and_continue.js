@@ -8,7 +8,7 @@ let skip;
     }
 }
 
-console.log(`Number to skip is: ${skip}`);
+console.log("Number to skip is:" + skip);
 
 for (let i = 1; i <= 50; i += 2) {
     if (i === parseInt(userInput)) {
