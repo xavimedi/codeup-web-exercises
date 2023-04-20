@@ -22,14 +22,14 @@ function tenRandomNumbers() {
 }
 
 function numberPyramid(){
-    let height = "";
+    let number = "";
     for (let i = 0; i < 10; i++){
         for (let j = 0; j < i; j++){
-            height += i;
+            number += i;
         }
-        height += "\n";
+        number += "\n";
     }
-    console.log(height);
+    console.log(number);
 }
 
 function fives(){
