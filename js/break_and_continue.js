@@ -1,9 +1,9 @@
 "use strict"
 
 let skip;
-while (true){
-    skip = prompt("Please enter an odd number between 1 and 50");
-    if (skip>= 1 && skip <= 50 && skip% 2 !== 0) {
+    while (true){
+        skip = prompt("Please enter an odd number between 1 and 50");
+        if (skip>= 1 && skip <= 50 && skip% 2 !== 0) {
         break;
     }
 }
