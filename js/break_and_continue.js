@@ -13,7 +13,7 @@ function numberSkip() {
 
     console.log("Number to skip is: " + skip);
 
-    for (let i = 1; i <= 50; i += 2) {
+    for (let i = 1; i <= 49; i += 2) {
         if (i === parseInt(skip)) {
             console.log("Yikes! Skipping number: " + skip);
             continue;

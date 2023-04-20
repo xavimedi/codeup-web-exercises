@@ -27,4 +27,3 @@ function sellCones() {
         console.log("Sorry, I cannot sell you " + conesBought + " for I only have " + allCones + " left.")
     }
 }
-
