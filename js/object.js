@@ -146,11 +146,11 @@
 	 *      ...
 	 */
 
-	for (let i = 0; i < books.length; i++) {
-		console.log("Book # " + (i + 1) + "\n"
-			+ "Title: " + books[i].title + "\n"
-			+ "Author: " + books[i].author.firstName + " " + books[i].author.lastName);
-	}
+	// for (let i = 0; i < books.length; i++) {
+	// 	console.log("Book # " + (i + 1) + "\n"
+	// 		+ "Title: " + books[i].title + "\n"
+	// 		+ "Author: " + books[i].author.firstName + " " + books[i].author.lastName);
+	// }
 
 	/**
 	 * Bonus:
@@ -176,5 +176,30 @@
 // createBook("Where The Sidewalk Ends", "Shel Silverstein");
 	// I got stuck 
 
+	//Cody's Walkthrough
+	function createBook(title, firstName, lastName){
+		let bookObject = {
+			title: title,
+			author: {
+				firstName: firstName,
+				lastName: lastName
+			}
+
+		}
+		books.push(bookObject);
+	}
+
+createBook("Where The Sidewalk Ends", "Shel", "Silverstein");
 
 
+	function showBookInfo(book){
+		return "Title: " + book.title + "\n" + "Author " + book.author.firstName + " " + book.author.lastName;
+	}
+
+
+
+	books.forEach(function(book,index){
+		console.log("Book # " + (index + 1) + "\n" + showBookInfo(book))
+	})
+
+	//Thanks, Cody!
