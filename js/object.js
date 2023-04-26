@@ -12,8 +12,8 @@
 	 */
 
 	let person = {
-		firstName: "Rick",
-		lastName: "Sanchez",
+		firstName: "Xavier",
+		lastName: "Medina",
 		sayHello: function () {
 			console.log("Hello from " + this.firstName + " " + this.lastName + "!");
 		}
