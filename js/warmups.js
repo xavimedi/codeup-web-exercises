@@ -28,3 +28,19 @@ findFactors("13"); // returns false;
 findFactors([54,72,144]); // returns false;
 findFactors({value: 64}); // returns false;
 findFactors(); // returns false;
+
+// David's Solution
+//
+// function findFactors(num) {
+// 	if (typeof num === "number" && !isNaN(num)){
+// 		let bucket = [];
+// 		for (let i = 1; i <= num; i++){
+// 			if (num % i === 0){
+// 				bucket.push(i);
+// 			}
+// 		}
+// 		return bucket;
+// 	} else {
+// 		return false
+// 	}
+// }
