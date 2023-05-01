@@ -4,15 +4,20 @@ function seven(){
 }
 console.log(seven());
 
-//May 1 2023
+//May 1, 2023
 function findFactors(number) {
 	let factors = [];
 	for(let i = 0; i <= number;  i++){
-		if(number % i == 0){
+		if (typeof number !== "number"){
+			return false
+		}
+		else if(number % i === 0) {
 			factors.push(i);
 		}
+	} if (factors.length === 0){
+		return false
 	}
-console.log(factors);
+	console.log(factors);
 }
 
 findFactors(6); // returns [1,2,3,6];
