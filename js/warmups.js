@@ -19,7 +19,7 @@ function findFactors(number) {
 	}
 	console.log(factors);
 }
-
+//was not able to fix function before the 15 was up
 findFactors(6); // returns [1,2,3,6];
 findFactors(16); // returns [1,2,4,8,16];
 findFactors(0); // returns [];
