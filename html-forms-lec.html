@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Forms Lecture</title>
+</head>
+<body>
+  <form method="post" action="https://request-inspector.glitch.me/">
+      <label for="value">Value</label>
+      <input type="text" name="value" id="value" disabled>
+      <label for="pw">Password</label>
+      <input type="password" name="pw" id="pw">
+      <label for="body">Body</label>
+      <textarea name="body" id="body" cols="30" rows="10"></textarea>
+      <br>
+      <h3>How can we contact you in the future?</h3>
+      <input type="checkbox" id="no-tm" name="notification-options" value="text-messaging">
+      <label for="no-tm">Text Messaging</label>
+      <input type="checkbox" id="no-e" name="notification-options" value="email">
+      <label for="no-e">Email</label>
+      <input type="checkbox" id="no-sm" name="notifications-options" value="mail">
+      <label for="no-sm">Post (Mail)</label>
+      <h3>What is 2 + 2 ?</h3>
+      <input type="radio" id="mq-a" name="math-question" value="a"><label for="mq-a">1</label>
+      <input type="radio" id="mq-b" name="math-question" value="a"><label for="mq-b">2</label>
+      <input type="radio" id="mq-c" name="math-question" value="a"><label for="mq-c">4</label>
+      <input type="radio" id="mq-d" name="math-question" value="a"><label for="mq-d">20</label>
+      <h3>What's your favorite Dreamworks Film</h3>
+      <select name="fav-dreamworks-film" id="fav-dreamworks-film">
+          <option value="Shrek">Shrek</option>
+          <option value="Megamind">Megamind</option>
+          <option value="KungfuPanda">Kungfu Panda</option>
+          <option value="Shrek4">Shrek Forever After</option>
+      </select>
+      <input type="hidden" name="secret" value="i don't really like that many cheeses">
+      <button>Let's Go!</button>
+  </form>
+</body>
+</html>
