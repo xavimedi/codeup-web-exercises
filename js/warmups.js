@@ -44,3 +44,27 @@ findFactors(); // returns false;
 // 		return false
 // 	}
 // }
+
+// 2 May 2023
+// Write a function that takes in a string and counts the instances of the letter 'e' within the argument. The count should be case-insensitive. If the string does not contain any 'e's it should return 0. If the argument is not a string it should return false.
+
+function countEs(string) {
+	let count = 0;
+	if (typeof string === "string"){
+		for (let i = 0; i < string.length; i++) {
+			if (string.toLowerCase()[i] === "e") {
+				count++;
+			}
+		}
+		return count;
+		}
+	else return false;
+	}
+
+
+console.log(countEs("Ease")); // returns 2;
+console.log(countEs("teleconference")); // returns 5;
+console.log(countEs("TOM")); // returns 0;
+console.log(countEs(true)); // returns false;
+console.log(countEs(['e', 'E'])); // returns false;
+console.log(countEs()); // returns false;
