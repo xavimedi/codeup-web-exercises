@@ -2,6 +2,42 @@
     color: purple;
     text-decoration: underline;
 }
-/*p{*/
-/*    color:crimson;*/
-/*}*/
+h1 {
+    text-align: center;
+    text-decoration: underline;
+}
+body {
+    background-image: url("../images/canvas.jpg");
+    background-color: antiquewhite;
+    background-size: 500px;
+}
+ul {
+    list-style-image: url('../images/tech-bullet.png');
+}
+html * {
+    font-size: 20px;
+    line-height: 25px;
+    font-family: 'Quicksand', sans-serif;
+}
+th, td {
+    padding: 10px;
+    font-size: 30px;
+}
+a:link{
+    color: royalblue;
+}
+a:visited{
+    color:magenta;
+}
+a:hover{
+    color: darkgreen;
+}
+a:active{
+    color: aqua;
+}
+.center{
+    margin: auto;
+    width: 50%;
+    border: 3px royalblue;
+    padding: 15px;
+}
