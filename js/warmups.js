@@ -68,3 +68,19 @@ console.log(countEs("TOM")); // returns 0;
 console.log(countEs(true)); // returns false;
 console.log(countEs(['e', 'E'])); // returns false;
 console.log(countEs()); // returns false;
+
+// 3 May 2023
+
+
+// Write a function that takes in a string and returns true if the argument contains at least one instance of the letter 'e'. This should be case-insensitive. If the argument is not a string, or if the argument does not contain 'e' it should return false.
+function findE(string) {
+	return countEs(string) > 0;
+}
+
+console.log(findE("apple")); // returns true
+console.log(findE(7)); // returns false
+console.log(findE("yam")); //returns false
+console.log(findE("Edd"));// returns true
+console.log(findE("Eagle")); // returns true
+console.log(findE("")); // returns false
+console.log(findE(true)); // returns false
