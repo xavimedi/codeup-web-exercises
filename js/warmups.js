@@ -84,3 +84,20 @@ console.log(findE("Edd"));// returns true
 console.log(findE("Eagle")); // returns true
 console.log(findE("")); // returns false
 console.log(findE(true)); // returns false
+
+//4 May 2023
+// Write a function named fizzBuzz that prints to the console the number 1-100. If the number is divisible by 3, print fizz instead of the number. If the number is divisible by 5, print buzz. If the number is divisible by both 3 and 5, print fizzBuzz.
+
+function fizzBuzz(){
+	let number = Math.floor(Math.random() * 100) + 1
+	if (number % 3 === 0 && number % 5 === 0){
+		console.log("fizzBuzz");
+	}
+	else if (number % 3 ===0  && number % 5 !== 0){
+		console.log("fizz");
+	}
+	else if (number % 5 === 0 && number % 3 !== 0){
+		console.log("buzz");
+	}
+	else console.log("neither fizz nor buzz")
+}
