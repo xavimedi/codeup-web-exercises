@@ -116,5 +116,10 @@ function fizzBuzz(){
 		else console.log(i);
 	}
 }
-
-
+function squares() {
+	let x = 2;
+	do {
+		console.log(x);
+		x = x ** 2;
+	} while (x < 1000000);
+}
