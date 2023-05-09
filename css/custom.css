@@ -1,0 +1,25 @@
+.list{
+	list-style: none;
+	text-decoration: none;
+	margin: 0 20px 0 20px;
+}
+.sign{
+	color: darkred;
+	text-decoration: none;
+	float: left;
+}
+.menu{
+	text-decoration: none;
+}
+
+.jumbotron {
+	background-image: url("../images/pizza.png");
+	height: 346px;
+	background-size: cover;
+	margin: 1em 0 0 5em;
+}
+
+.welcome{
+	font-size: 2em;
+	text-align: center
+}
