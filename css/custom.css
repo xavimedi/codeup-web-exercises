@@ -1,12 +1,10 @@
 .list{
 	list-style: none;
 	text-decoration: none;
-	margin: 0 20px 0 20px;
+	margin: 0 10px 0 10px;
 }
 .sign{
-	color: darkred;
 	text-decoration: none;
-	float: left;
 }
 .menu{
 	text-decoration: none;
@@ -17,9 +15,10 @@
 	height: 346px;
 	background-size: cover;
 	margin: 1em 0 0 5em;
+	text-align: center;
 }
-
 .welcome{
 	font-size: 2em;
-	text-align: center
+	transform: translate(0%, 200%);
+	margin: auto;
 }
