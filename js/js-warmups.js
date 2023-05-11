@@ -48,18 +48,18 @@
 // 2 May 2023
 // Write a function that takes in a string and counts the instances of the letter 'e' within the argument. The count should be case-insensitive. If the string does not contain any 'e's it should return 0. If the argument is not a string it should return false.
 
-// function countEs(string) {
-// 	let count = 0;
-// 	if (typeof string === "string"){
-// 		for (let i = 0; i < string.length; i++) {
-// 			if (string.toLowerCase()[i] === "e") {
-// 				count++;
-// 			}
-// 		}
-// 		return count;
-// 		}
-// 	else return false;
-// 	}
+function countEs(string) {
+	let count = 0;
+	if (typeof string === "string"){
+		for (let i = 0; i < string.length; i++) {
+			if (string.toLowerCase()[i] === "e") {
+				count++;
+			}
+		}
+		return count;
+		}
+	else return false;
+	}
 //
 //
 // console.log(countEs("Ease")); // returns 2;
@@ -128,17 +128,48 @@
 
 
 //10 May 2023
-function addEmUp(array) {
-	let total = 0;
-	for(let i = 0; i < array.length; i += 1){
-		total += array[i];
-	}
-	return total;
-}
+// function addEmUp(array) {
+// 	let total = 0;
+// 	for(let i = 0; i < array.length; i += 1){
+// 		total += array[i];
+// 	}
+// 	return total;
+// }
+//
+// console.log(addEmUp([2,6,19])); // returns 27
+// console.log(addEmUp([-99, 180, -5])); // returns 76
+// console.log(addEmUp([44,10,7])); // returns 61
+// console.log(addEmUp([-100])); // returns -100
+// console.log(addEmUp([1,2,3,4,5,6,7,8,9,10])); // returns 55
+// console.log(addEmUp([-13, -92, -3500])) // returns -3605
 
-console.log(addEmUp([2,6,19])); // returns 27
-console.log(addEmUp([-99, 180, -5])); // returns 76
-console.log(addEmUp([44,10,7])); // returns 61
-console.log(addEmUp([-100])); // returns -100
-console.log(addEmUp([1,2,3,4,5,6,7,8,9,10])); // returns 55
-console.log(addEmUp([-13, -92, -3500])) // returns -3605
+//11 May 2023
+
+// Write a function that takes in a string and returns an object describing the string. The object should have a string property that contains the original string, a numberOfEs property that contains a count of the number of e's in the string (case-insensitive), and a isEvenLength property that contains a boolean for whether the string's length is even or not.
+
+// function isEvenLength(string){
+// 	if (string.length % 2 === 0){
+// 		return true;
+// 	}
+// 	else return false;
+// }
+
+// function explainString(string){
+// 	let info = [typeof(string), countEs(string), isEvenLength(string)]
+// 	return info;
+// }
+
+
+//David's Solution
+// function explainString(str){
+// 	return {
+// 		string: str,
+// 		numberOfEs: countEs(str),
+// 		isEvenLength: str.length % 2 === 0
+// 	}
+// }
+//
+//
+//
+// console.log(explainString("cheese")) // returns {string: "cheese", numberOfEs: 3, isEvenLength: true}
+// console.log(explainString("dog")) // returns {string: "dog", numberOfEs: 0, isEvenLength: false}
