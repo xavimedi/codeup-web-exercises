@@ -211,11 +211,27 @@ const hamsters = [
 ];
 
 //12 May 2023
-function extractNames(object) {
+function extractNames(arr) {
 	var names = [];
-	for (var i = 0; i < hamsters.length; ++i)
+	for  (let i = 0; i < hamsters.length; ++i)
 		names.push(hamsters[i].name);
 	return names;
 }
 
 console.log(extractNames(hamsters)); // returns ["Hamtaro", "Bijou", "Oxnard", "Boss", "Snoozer"];
+
+//15 May 2023
+
+// Write a function that takes in an array of objects and returns the object with the largest heightInMM property
+
+const getTallest = function(arr){
+	let tallest = {heightInMM: 0};
+	arr.forEach(function (obj){
+		if (obj.heightInMM > tallest.heightInMM){
+			tallest = obj;
+		}
+	});
+	return tallest;
+}
+
+console.log(getTallest(hamsters)); // returns {name: "Boss", heightInMM: 120, fur: ['brown', 'white'], gender: "male", dateOfBirth: "September 21"}
