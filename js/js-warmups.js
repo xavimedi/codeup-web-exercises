@@ -211,27 +211,46 @@ const hamsters = [
 ];
 
 //12 May 2023
-function extractNames(arr) {
-	var names = [];
-	for  (let i = 0; i < hamsters.length; ++i)
-		names.push(hamsters[i].name);
-	return names;
-}
+// function extractNames(arr) {
+// 	var names = [];
+// 	for  (let i = 0; i < hamsters.length; ++i)
+// 		names.push(hamsters[i].name);
+// 	return names;
+// }
+//
+// console.log(extractNames(hamsters)); // returns ["Hamtaro", "Bijou", "Oxnard", "Boss", "Snoozer"];
+//
+// //15 May 2023
+//
+// // Write a function that takes in an array of objects and returns the object with the largest heightInMM property
+//
+// const getTallest = function(arr){
+// 	let tallest = {heightInMM: 0};
+// 	arr.forEach(function (obj){
+// 		if (obj.heightInMM > tallest.heightInMM){
+// 			tallest = obj;
+// 		}
+// 	});
+// 	return tallest;
+// }
+//
+// console.log(getTallest(hamsters)); // returns {name: "Boss", heightInMM: 120, fur: ['brown', 'white'], gender: "male", dateOfBirth: "September 21"}
+// console.log(getTallest(hamsters));
 
-console.log(extractNames(hamsters)); // returns ["Hamtaro", "Bijou", "Oxnard", "Boss", "Snoozer"];
 
-//15 May 2023
 
-// Write a function that takes in an array of objects and returns the object with the largest heightInMM property
+// Write a function that takes in an array of objects and returns an array of the objects from the array that only have one fur color.
 
-const getTallest = function(arr){
-	let tallest = {heightInMM: 0};
-	arr.forEach(function (obj){
-		if (obj.heightInMM > tallest.heightInMM){
-			tallest = obj;
+function singleFurColor(objArr){
+	let arr = [];
+
+	objArr.forEach(function(obj){
+		if(obj.fur.length === 1){
+			arr.push(obj);
 		}
 	});
-	return tallest;
+
+	return arr;
 }
 
-console.log(getTallest(hamsters)); // returns {name: "Boss", heightInMM: 120, fur: ['brown', 'white'], gender: "male", dateOfBirth: "September 21"}
+console.log(singleFurColor(hamsters)); // returns [{name: "Bijou", heightInMM: 75, fur: ['white'], gender: "female", dateOfBirth: "July 10"}];
