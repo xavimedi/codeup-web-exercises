@@ -1,1 +1,1 @@
-# codytheduck
+# codeup-web-exercises
