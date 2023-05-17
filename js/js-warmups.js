@@ -241,16 +241,30 @@ const hamsters = [
 
 // Write a function that takes in an array of objects and returns an array of the objects from the array that only have one fur color.
 
-function singleFurColor(objArr){
-	let arr = [];
+// function singleFurColor(objArr){
+// 	let arr = [];
+//
+// 	objArr.forEach(function(obj){
+// 		if(obj.fur.length === 1){
+// 			arr.push(obj);
+// 		}
+// 	});
+//
+// 	return arr;
+// }
+//
+// console.log(singleFurColor(hamsters)); // returns [{name: "Bijou", heightInMM: 75, fur: ['white'], gender: "female", dateOfBirth: "July 10"}];
 
-	objArr.forEach(function(obj){
-		if(obj.fur.length === 1){
-			arr.push(obj);
-		}
-	});
+// Write a function that takes in an array of objects and returns the object with the most colors in the fur array.
 
-	return arr;
+function mostColorful(hamsters){
+ 	let colors = {fur: 0};
+ 	arr.forEach(function (obj){
+ 		if (obj.fur > tallest.heightInMM){
+ 			tallest = obj;
+ 		}
+ 	});
+ 	return tallest;
 }
 
-console.log(singleFurColor(hamsters)); // returns [{name: "Bijou", heightInMM: 75, fur: ['white'], gender: "female", dateOfBirth: "July 10"}];
+console.log(mostColorful(hamsters)); // returns {name: "Snoozer", heightInMM: 85, fur: ['brown', 'white', "pink"], gender: "male", dateOfBirth: "January 14"};
