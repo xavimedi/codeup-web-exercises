@@ -257,14 +257,54 @@ const hamsters = [
 
 // Write a function that takes in an array of objects and returns the object with the most colors in the fur array.
 
-function mostColorful(hamsters){
- 	let colors = {fur: 0};
- 	arr.forEach(function (obj){
- 		if (obj.fur > tallest.heightInMM){
- 			tallest = obj;
- 		}
- 	});
- 	return tallest;
+// function mostColorful(hamsters){
+//  	let colors = {fur: 0};
+//  	arr.forEach(function (obj){
+//  		if (obj.fur > tallest.heightInMM){
+//  			tallest = obj;
+//  		}
+//  	});
+//  	return tallest;
+// }
+//
+// console.log(mostColorful(hamsters)); // returns {name: "Snoozer", heightInMM: 85, fur: ['brown', 'white', "pink"], gender: "male", dateOfBirth: "January 14"};
+
+// 18 May 2023
+
+// Write a JavaScript function that takes in a number and returns an object with the following fields: number, which will contain the original number; evenOrOdd, which will contain a string ("even" or "odd") as to whether the value is even or odd; factors, an array of numbers that are evenly divisible within the number passed; and numberOfDigits, a number counting the number of digits with the number passed.
+
+function describeNumber(number) {
+
+	let evenOrOdd = [];
+	let factors = [];
+	let numberOfDigits = number.toString();
+
+	var numberInfo = {
+		number: number,
+		evenOrOdd: evenOrOdd,
+		Factors: factors,
+		numberOfDigits: numberOfDigits.length
+	}
+
+	for(let i = 1; i <= number; i++) {
+		if(number % i == 0) {
+			factors.push(i);
+		}
+	}
+
+	if (number % 2 === 0) {
+		evenOrOdd.push("even");
+	} else evenOrOdd.push("odd")
+
+	console.log(numberInfo);
 }
 
-console.log(mostColorful(hamsters)); // returns {name: "Snoozer", heightInMM: 85, fur: ['brown', 'white', "pink"], gender: "male", dateOfBirth: "January 14"};
+
+
+
+
+
+
+
+console.log(describeNumber(19)); // returns {number: 19, evenOrOdd: "odd", factors: [1,19], numberOfDigits: 2};
+console.log(describeNumber(2)); // returns {number: 2, evenOrOdd: "even", factors: [1,2], numberOfDigits: 1};
