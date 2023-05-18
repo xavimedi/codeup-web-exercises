@@ -296,7 +296,7 @@ function describeNumber(number) {
 		evenOrOdd.push("even");
 	} else evenOrOdd.push("odd")
 
-	console.log(numberInfo);
+	return numberInfo;
 }
 
 
