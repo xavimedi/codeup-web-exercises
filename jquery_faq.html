@@ -24,13 +24,34 @@
 			margin: 1em;
 		}
 		li{
-			list-style: none;
+			list-style: circle;
+			background: rgba(160, 105, 60, 0.5);
 		}
 
 		.highlighted{
-			background-color: #795C5F;
-			color: #31231E;
+			background-color: yellow;
+			color: #403D39
 		}
+
+		.parks{
+			background-image: url("images/national-parks.jpg");
+			background-size: cover;
+		}
+
+		.parks h3{
+			text-align: center;
+			color: beige;
+			background: rgba(160, 105, 60, 0.5);
+		}
+
+		.parks li{
+			color: beige;
+		}
+
+		.btn{
+			margin: 1em;
+		}
+
 	</style>
 	<!-- <link rel="stylesheet" href="css/konami.css"/> added an external css just in case-->
 </head>
@@ -69,11 +90,15 @@
 	<dt><button type="button" class="btn btn-secondary btn-lg">How do I make reservations for camping/lodging in national parks?</button></dt>
 		<dd>For campground reservations, visit Recreation.gov. Not all parks participate in this service; many campgrounds are first come, first served. For more information on specific camping and lodging services offered at the park(s) of your interest, please check specific park websites. You can also learn more about camping in national parks and find a map of parks with camping opportunities.</dd>
 </dl>
+
+<!--FAQ button-->
+
 <ul>
-	<li><button type="button" class="btn btn-secondary btn-lg toggle-all">Toggle All Answers</button></li>
+	<button type="button" class="btn btn-secondary btn-lg toggle-all">Toggle All Answers</button>
 </ul>
 
-
+<!--PARKS-->
+<div class="parks">
 <h1>Parks List</h1>
 
 <h3>Zion of Utah</h3>
@@ -82,7 +107,6 @@
 	<li>lowest point in the park is 3,666 ft</li>
 	<li>Human habitation of the area started about 8,000 years ago</li>
 	<li>weather is unpredictable, with stormy, wet days being common, mixed with occasional warm, sunny weather</li>
-	<li>They have Peregrine Falcons here, my favorite bird</li>
 </ul>
 
 <h3>Guadalupe Mountains of Texas</h3>
@@ -91,7 +115,6 @@
 	<li>Highest point in Texas</li>
 	<li>he Mescalero Apaches occupied the mountains through the mid-19th century</li>
 	<li>the Guadalupe Mountains violet, is a rare flower that is endemic to the park</li>
-	<li>They have Peregrine Falcons here, my favorite bird</li>
 </ul>
 
 <h3>Makoshika of Montana</h3>
@@ -100,10 +123,11 @@
 	<li>Dinosaur fossils discovered in and near the park include examples of Triceratops and Thescelosaurus</li>
 	<li>Turkey vultures, prairie falcons, and golden eagles make a home in the park</li>
 	<li>It is the largest of Montana's state parks at more than 11,000 acres</li>
-	<li>Events include the annual "Buzzard Day" celebration</li>
 </ul>
+</div>
+<!--PARK BUTTON-->
 
-
+<button type="button" class="btn btn-secondary" id="highlight-button">Highlight Last Item</button>
 
 
 <!-- SCRIPTS -->
@@ -111,8 +135,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
 
 <script>
+	"use strict";
+	//FIRST PART SCRIPT (I DID IT WRONG I THINK)
 	$(document).ready(function() {
-		"use strict";
 
 		$('dd').hide();
 
@@ -124,6 +149,23 @@
 		$('.toggle-all').click(function() {
 			$('dd').toggle();
 			$('dd').toggleClass('highlighted');
+		});
+	});
+
+	//NAT'L PARK BUTTON & SCRIPT
+
+	$(document).ready(function() {
+
+		$('#highlight-button').click(function () {
+			$('ul li:last-child').css('background-color', 'yellow');
+		});
+
+		$('h3').click(function() {
+			$(this).next().children('li').css('font-weight', 'bold');
+		});
+
+		$('li').click(function() {
+			$(this).parent().children('li:first-child').css('color', 'royalblue');
 		});
 	});
 </script>
