@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax Blog</title>
+</head>
+<body>
+
+<div id="posts">
+</div>
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+<script>
+	(function() {
+		"use strict";
+
+		$.get('/data/blog.json').done(function(data) {
+			console.log(data);
+			addToTable(data);
+		});
+
+		function addToTable(data){
+			let div = document.getElementById("posts");
+			data.forEach(function(item){
+
+				let row = document.createElement("tr");
+				let title = document.createElement("td");
+				title.textContent = item.title;
+				let content = document.createElement("td");
+				content.textContent = item.content
+				let category = document.createElement("td");
+				category.textContent = item.categories.join(", ");
+				let date = document.createElement("td");
+				date.textContent = item.date;
+
+				row.appendChild(title);
+				row.appendChild(content);
+				row.appendChild(category);
+				row.appendChild(date);
+				div.appendChild(row);
+			});
+		};
+	})();
+</script>
+
+</body>
+</html>
