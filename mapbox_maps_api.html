@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pipboy Mapbox</title>
+
+	<link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+	<script src="js/keys.js"></script><!--
+	**IMPORTANT**
+	YOU WILL NEED YOUR OWN FILE OF THIS NAME WITH THE FOLLOWING INFO:
+	keys.js
+	---
+	"use strict";
+
+	const MAPBOX_KEY = "pk.**YOUR OWN API KEY**"
+	---
+	**IMPORTANT**
+	-->
+
+	<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+
+	<style>
+		body{ margin: 0; padding: 2em; background-image: url("images/pipboy.PNG"); background-size: 1600px}
+
+		#map{ position: fixed; top: 13em; left: 27.2em; bottom: 13em; width: 666px; height: 513px}
+
+		#buttons{ position: fixed; top: 7.45em; left: 20.5em; bottom: 1em;}
+	</style>
+</head>
+<body>
+<!-- BUTTONS-->
+	<div id="buttons">
+		<button id="btn1" type="button" class="btn btn-primary">Home</button>
+		<button id="btn2" type="button" class="btn btn-success">P.Terry's</button>
+		<button id="btn3" type="button" class="btn btn-success">Denny's</button>
+		<button id="btn4" type="button" class="btn btn-success">888</button>
+		<button id="btn5" type="button" class="btn btn-warning">Favorite Parks</button>
+		<button id="btn6" type="button" class="btn btn-info">Info</button>
+		<button id="btn7" type="button" class="btn btn-light">Zoom +</button>
+		<button id="btn8" type="button" class="btn btn-dark">Zoom -</button>
+
+	</div>
+
+	<div id="map">
+	</div>
+
+	<!--MAPBOX SCRIPT -->
+	<script>
+		mapboxgl.accessToken = MAPBOX_KEY;
+		const map = new mapboxgl.Map({
+			container: "map",
+			style: "mapbox://styles/mapbox/streets-v12",
+			center: [-97.74034041652511, 30.274673980925993],
+			zoom: 10
+		});
+	</script>
+
+	<!--BUTTON SCRIPTS-->
+	<script>
+		document.getElementById("btn1").addEventListener("click", function(){
+			map.setCenter([-97.74034041652511, 30.274673980925993]);
+			map.setZoom(10);
+		});
+
+		let marker1
+		document.getElementById("btn2").addEventListener("click", function(){
+			if (marker1){
+				marker1.remove();
+				marker1 = null;
+			}
+			else{
+				const marker1coords = [-97.73629888582765, 30.232256325860007];
+				marker1 = new mapboxgl.Marker()
+					.setLngLat(marker1coords)
+					.setPopup(new mapboxgl.Popup().setHTML("<h4><em>P. Terry's</em></h4>World Famous Burgers and Shakes"))
+					.addTo(map);
+			}});
+
+		let marker2
+		document.getElementById("btn3").addEventListener("click", function(){
+			if (marker2){
+				marker2.remove();
+				marker2 = null;
+			}
+			else{
+				const marker2coords = [-97.7425545260295, 30.233224532497907];
+				marker2 = new mapboxgl.Marker()
+					.setLngLat(marker2coords)
+					.setPopup(new mapboxgl.Popup().setHTML("<h4><em>Denny's</em></h4>Classic American Diner"))
+					.addTo(map);
+			}});
+
+		let marker3;
+		document.getElementById("btn4").addEventListener("click", function(){
+			if (marker3){
+				marker3.remove();
+				marker3 = null;
+			}
+			else{
+				const marker3coords = [-97.72999992984617, 30.229650828066028];
+				marker3 = new mapboxgl.Marker()
+					.setLngLat(marker3coords)
+					.setPopup(new mapboxgl.Popup().setHTML("<h4><em>888</em></h4>Amazing Vietnamese and Chinese food"))
+					.addTo(map);
+			}});
+
+		let markers = [];
+		const parkNames =
+			["McKinney Falls<br>5808 McKinney Falls Pkwy<br>Austin, TX 78744",
+				"Zilker<br>2201 Andrew Zilker Rd<br>Austin, TX 78746",
+				"Barton Creek<br>Austin, TX 78746 ",
+				"Mary Moore Searight<br>907 W Slaughter Ln<br>Austin, TX 78748",
+				"Stephensen Reserve<br>7501 Longview Rd<br>Austin, TX 78745"]
+
+		document.getElementById("btn5").addEventListener("click", function() {
+			if (markers.length > 0) {
+				markers.forEach(marker => marker.remove());
+				markers = [];
+			}
+			else{
+
+				const locations = [
+					[-97.72516047394475, 30.18056001545346],
+					[-97.77305017917672, 30.266934187356263],
+					[-97.81248707082034, 30.247073148814778],
+					[-97.80756188852999, 30.163910734753493],
+					[-97.8245264687558, 30.20650287448342],
+				];
+
+				locations.forEach((location, index) => {
+					const marker = new mapboxgl.Marker()
+						.setLngLat(location)
+						.setPopup(new mapboxgl.Popup().setHTML(`<h5><em>${parkNames[index]}</em></h5>`)).addTo(map);
+					markers.push(marker);
+				});}});
+
+
+		document.getElementById("btn6").addEventListener("click", function(){
+			alert("This is my first attempt at creating a webpage utilizing Mapbox. " +
+				"I hope you enjoy what I've put together.");
+		});
+
+		document.getElementById("btn7").addEventListener("click", function(){
+			map.setZoom(map.getZoom() * 1.5);
+		});
+
+		document.getElementById("btn8").addEventListener("click", function(){
+			map.setZoom(map.getZoom() / 1.5);
+		});
+	</script>
+
+	<!--BOOTSTRAP-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
+	<!-- JQUERY -->
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+</body>
+</html>
