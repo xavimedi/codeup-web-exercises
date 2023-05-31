@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Weather of Houston</title>
-	<!-- MAPBOX -->
+	<!-- MAPBOX CSS -->
 	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" rel="stylesheet"/>
 	<!-- MAPBOX JS -->
 	<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js"></script>
@@ -19,18 +19,35 @@
 	<script src="js/keys.js"></script>
 	<!-- CSS -->
 	<style>
+		/* MEDIA QUERIES */
+		/*medium*/
+		@media (max-width: 991px){
+			#map{content-visibility: hidden;}
+			.week{margin: auto 5%;}
+			.days{width: 95%; height: 400px; margin: 25px;}
+		}
+		/*large*/
+		@media (min-width: 992px) and (max-width: 1199px){
+			#map{width: 50%; height: 500px; margin: 30px 0 0 50px;}
+			.week{margin: 30px 0 0 15px;}
+			.days{width: 400px; height: 95px; margin: 4px 0;}
+		}
+		/*xlarge*/
+		@media (min-width: 1200px){
+			#map{width: 50%; height: 700px; margin: 50px 30px 0 30px;}
+			.week{margin: 20px 0 0 0;}
+			.days{width: 100%; height: 115px;margin: 30px 0;}
+		}
+		/* BACKGROUND */
 		body{
 			background-image: url("images/houston.jpeg");
 			background-size: 1600PX;
 		}
-		#map{
-			width: 650px;
-			height: 650px;
-			margin: 2em 5em;
-		}
-		h1{
-			text-align: center;
-		}
+		/* GLOBAL CSS */
+		.row{width: 100%; margin: 0;}
+		.navbar{width: 100%}
+		h1{text-align: center;}
+		.navbar-brand{margin-left: 1em;}
 	</style>
 </head>
 <body>
@@ -71,14 +88,55 @@
 		</div>
 	</div>
 </nav>
+<div class="row">
+	<!-- BOX FOR MAP -->
+	<div id="map" class="col-xl-5 col-lg-5 col-md-11 col-sm-12"></div>
 
-<!-- BOX FOR MAP -->
-<div id="map"></div>
+	<!-- DIVS FOR FORECAST CARDS -->
+	<div class="week col-xl-5 col-lg-5 col-md-11 col-sm-12">
+		<div id="day1">
+			<div class="card days" style="">
+				<div class="card-body">
+					<h5 class="card-title">Today</h5>
+					<p class="card-text"></p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="card days">
+				<div class="card-body">
+					<h5 class="card-title"></h5>
+					<p class="card-text"></p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="card days">
+				<div class="card-body">
+					<h5 class="card-title"></h5>
+					<p class="card-text"></p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="card days">
+				<div class="card-body">
+					<h5 class="card-title"></h5>
+					<p class="card-text"></p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="card days">
+				<div class="card-body">
+					<h5 class="card-title"></h5>
+					<p class="card-text"></p>
+				</div>
+			</div>
+		</div>
+	</div>
 
-<!-- DIVS FOR FORECAST CARDS -->
-
-
-
+</div>
 <!-- SCRIPTS -->
 
 <script>
