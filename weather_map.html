@@ -2,48 +2,107 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Geocode Examples</title>
-	<!-- Mapbox CSS -->
-	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
-	<!-- Custom CSS -->
+	<title>Weather of Houston</title>
+	<!-- MAPBOX -->
+	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" rel="stylesheet"/>
+	<!-- MAPBOX JS -->
+	<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js"></script>
+	<!-- MAPBOX GEOCODER -->
+	<script src="mapbox-geocoder-utils.js"></script>
+	<!-- JQUERY SCRIPT -->
+	<script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+	<!-- BOOTSTRAP CDN -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+	<!-- BOOTSTRAP SCRIPT -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+	<!--JS FILE FOR KEYS -->
+	<script src="js/keys.js"></script>
+	<!-- CSS -->
 	<style>
-		#map {
-			/* the width and height may be set to any size */
-			width: 100%;
-			height: 700px;
+		body{
+			background-image: url("images/houston.jpeg");
+			background-size: 1600PX;
+		}
+		#map{
+			width: 650px;
+			height: 650px;
+			margin: 2em 5em;
+		}
+		h1{
+			text-align: center;
 		}
 	</style>
 </head>
 <body>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+	<div class="container-fluid">
+		<a class="navbar-brand" href="#">Houston Weather</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link active" aria-current="page" href="#">Home</a>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Music
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Upcoming Events</a></li>
+						<li><a class="dropdown-item" href="#">Previous Events</a></li>
+						<li><a class="dropdown-item" href="#">Houston's Own</a></li>
+					</ul>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						Sports
+					</a>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="#">Astros</a></li>
+						<li><a class="dropdown-item" href="#">Rockets</a></li>
+						<li><a class="dropdown-item" href="#">Texans</a></li>
+						<li><a class="dropdown-item" href="#">Dynamo</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
 
-<h1>My First Mapbox Map!</h1>
+<!-- BOX FOR MAP -->
+<div id="map"></div>
 
-<!-- The HTML element that serves as the Mapbox container -->
-<div id='map'></div>
+<!-- DIVS FOR FORECAST CARDS -->
 
-<!-- Mapbox JS -->
-<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
 
-<!-- Mapbox Geocoder Util Methods -->
-<script src="mapbox-geocoder-utils.js"></script>
 
-<!-- Custom JS -->
+<!-- SCRIPTS -->
+
 <script>
-	var accessToken = YOUR_TOKEN_HERE;
-	mapboxgl.accessToken = accessToken;
-	var map = new mapboxgl.Map({
-		container: 'map',
-		style: 'mapbox://styles/mapbox/streets-v9',
+	let accessToken = OPENWEATHER_KEY;
+	mapboxgl.accessToken = MAPBOX_KEY;
+	let map = new mapboxgl.Map({
+		container: "map",
+		style: "mapbox://styles/mapbox/streets-v9",
 		zoom: 10,
-		center: [-98.4916, 29.4252]
+		center: [-95.36936284974837, 29.760187773613016] //HOUSTON, TX
 	});
-
-	// reverse geocode method from mapbox-geocoder-utils.js
-	reverseGeocode({lng: -98.4861, lat: 29.4260}, accessToken).then(function(results) {
-		// logs the address for The Alamo
-		console.log(results);
-	});
-
 </script>
+<script>
+	$.get("http://api.openweathermap.org/data/2.5/forecast", {
+		APPID: OPENWEATHER_KEY,
+		lat:	29.76, //HOUSTON, TX
+		lon:	-95.36,
+		units: "imperial"
+	}).done(function(data) {
+		console.log("5 day forecast", data);
+
+	});
+</script>
+
+
 </body>
 </html>

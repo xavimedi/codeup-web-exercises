@@ -21,13 +21,28 @@
 	-->
 
 	<script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
-
+	<!-- CSS -->
 	<style>
-		body{ margin: 0; padding: 2em; background-image: url("images/pipboy.PNG"); background-size: 1600px}
+		body{ margin: 0; padding: 2em;
+			background-image: url("images/pipboy.PNG");
+			background-size: 1600px
+		}
 
-		#map{ position: fixed; top: 13em; left: 27.2em; bottom: 13em; width: 666px; height: 513px}
+		#map{
+			position: fixed;
+			top: 13em;
+			left: 27.2em;
+			bottom: 13em;
+			width: 666px;
+			height: 513px
+		}
 
-		#buttons{ position: fixed; top: 7.45em; left: 20.5em; bottom: 1em;}
+		#buttons{
+			position: fixed;
+			top: 7.45em;
+			left: 20.5em;
+			bottom: 1em;
+		}
 	</style>
 </head>
 <body>
@@ -41,7 +56,6 @@
 		<button id="btn6" type="button" class="btn btn-info">Info</button>
 		<button id="btn7" type="button" class="btn btn-light">Zoom +</button>
 		<button id="btn8" type="button" class="btn btn-dark">Zoom -</button>
-
 	</div>
 
 	<div id="map">
