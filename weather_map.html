@@ -24,19 +24,19 @@
 		@media (max-width: 991px){
 			#map{content-visibility: hidden;}
 			.week{margin: auto 5%;}
-			.days{width: 95%; height: 400px; margin: 25px;}
+			.days{width: 95%; height: 150px; margin: 25px;}
 		}
 		/*large*/
 		@media (min-width: 992px) and (max-width: 1199px){
-			#map{width: 50%; height: 500px; margin: 40px 0 0 50px;}
+			#map{width: 50%; height: 500px; margin: 20px 0 0 50px;}
 			.week{margin: 30px 0 0 15px;}
 			.days{width: 400px; height: 95px; margin: 4px 0;}
 		}
 		/*xlarge*/
 		@media (min-width: 1200px){
-			#map{width: 50%; height: 700px; margin: 50px 30px 0 30px;}
+			#map{width: 50%; height: 700px; margin: 20px 30px 30px;}
 			.week{margin-top: 20px;}
-			.days{width: 100%; height: 115px;margin: 30px 0;}
+			.days{width: 100%; height: 110px;margin: 0 0 35px 0;}
 		}
 		/* BACKGROUND */
 		body{
@@ -47,6 +47,7 @@
 		h1{text-align: center;}
 		.navbar{background-color: #6096BA}
 		.navbar-brand{margin-left: 2em; font-size: 1.2em}
+		.dayName{text-align: center}
 	</style>
 </head>
 <body>
@@ -62,16 +63,15 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="https://github.com/xavimedi/codeup-web-exercises/blob/main/weather_map.html">Source</a>
+					<a class="nav-link active" target="_blank" href="https://github.com/xavimedi/codeup-web-exercises/blob/main/weather_map.html">Source</a>
 				</li>
-
 				<li class="nav-item">
-					<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+					<a class="nav-link active" target="_blank" href="https://www.youtube.com/@MapboxOfficial/videos">Teachables</a>
 				</li>
 			</ul>
 			<form class="d-flex">
-				<input class="form-control me-2" type="search" placeholder="ZIP Code" aria-label="Search">
-				<button class="btn btn-outline-success" type="submit">Search</button>
+				<input id="zipCodeInput" class="form-control me-2" type="search" placeholder="ZIP Code" aria-label="Search">
+				<button class="btn btn-outline-warning" type="submit">Search</button>
 			</form>
 		</div>
 	</div>
@@ -79,19 +79,19 @@
 
 <div class="row">
 	<!-- BOX FOR MAP -->
-	<div id="map" class="col-xl-5 col-lg-5 col-md-11 col-sm-12"></div>
+	<div id="map" class="col-xl-5 col-lg-5 col-md-11"></div>
 
 	<!-- DIVS FOR FORECAST CARDS -->
-	<div class="week col-xl-5 col-lg-5 col-md-11 col-sm-12">
+	<div class="week col-xl-5 col-lg-5 col-md-11">
 		<div id="day1">
 			<div class="card days" style="">
 				<div class="card-body">
-					<h5 class="card-title">Today</h5>
+					<h5 class="card-title"></h5>
 					<p class="card-text"></p>
 				</div>
 			</div>
 		</div>
-		<div>
+		<div id="day2">
 			<div class="card days">
 				<div class="card-body">
 					<h5 class="card-title"></h5>
@@ -99,7 +99,7 @@
 				</div>
 			</div>
 		</div>
-		<div>
+		<div id="day3">
 			<div class="card days">
 				<div class="card-body">
 					<h5 class="card-title"></h5>
@@ -107,7 +107,7 @@
 				</div>
 			</div>
 		</div>
-		<div>
+		<div id="day4">
 			<div class="card days">
 				<div class="card-body">
 					<h5 class="card-title"></h5>
@@ -115,7 +115,7 @@
 				</div>
 			</div>
 		</div>
-		<div>
+		<div id="day5">
 			<div class="card days">
 				<div class="card-body">
 					<h5 class="card-title"></h5>
@@ -124,7 +124,6 @@
 			</div>
 		</div>
 	</div>
-
 </div>
 <!-- SCRIPTS -->
 
@@ -132,46 +131,50 @@
 	mapboxgl.accessToken = MAPBOX_KEY;
 	let map = new mapboxgl.Map({
 		container: "map",
-		style: "mapbox://styles/mapbox/streets-v9",
-		zoom: 10,
+		style: "mapbox://styles/mapbox/satellite-v9",
+		zoom: 9,
 		center: [-95.36936284974837, 29.760187773613016]
 	});
 
-	$(document).ready(function() {
+	$(document).ready(function(){
 
-		$.get("http://api.openweathermap.org/data/2.5/forecast", {
+		$.get("http://api.openweathermap.org/data/2.5/forecast",{
 			APPID: OPENWEATHER_KEY,
 			lat: 29.76,
 			lon: -95.36,
 			units: "imperial"
-		}).done(function(data) {
-			console.log("5 day forecast", data);
+		}).done(function(data){
 
-			const todayForecast = data.list[0];
-			updateForecast("#day1", "Today", todayForecast);
+			const day1Forecast = data.list[0];
+			const day2Forecast = data.list[8];
+			const day3Forecast = data.list[16];
+			const day4Forecast = data.list[24];
+			const day5Forecast = data.list[32];
 
-			for (let i = 1; i <= 4; i++) {
-				const forecast = data.list[i];
-				const card = $(".days:eq(" + i + ")");
-				const dayOfWeek = getDayOfWeek(forecast.dt);
-				updateForecast(card, dayOfWeek, forecast);
-			}
+			updateForecast("#day1", getDayOfWeek(day1Forecast.dt), day1Forecast);
+			updateForecast("#day2", getDayOfWeek(day2Forecast.dt), day2Forecast);
+			updateForecast("#day3", getDayOfWeek(day3Forecast.dt), day3Forecast);
+			updateForecast("#day4", getDayOfWeek(day4Forecast.dt), day4Forecast);
+			updateForecast("#day5", getDayOfWeek(day5Forecast.dt), day5Forecast);
+
 		});
 
-		function updateForecast(cardSelector, dayOfWeek, forecast) {
+		function updateForecast(cardSelector, dayOfWeek, forecast){
 			const card = $(cardSelector);
-			card.find(".card-title").text(dayOfWeek);
+			card.find(".card-title").html(`<div class="dayName">${dayOfWeek}</div>`);
 			card.find(".card-text").html(`
-				Temperature: ${forecast.main.temp}&deg;F
-				Rain Chance: ${forecast.pop}%
-				Humidity: ${forecast.main.humidity}%
-				Wind: ${forecast.wind.speed} mph
+				<div class="row">
+					<div class="col-6">Temperature: ${forecast.main.temp}&deg;F</div>
+					<div class="col-6">Rain Chance: ${forecast.pop}%</div>
+					<div class="col-6">Humidity: ${forecast.main.humidity}%</div>
+					<div class="col-6">Wind: ${forecast.wind.speed} mph</div>
+				</div>
 			`);
 		}
 
-		function getDayOfWeek(timestamp) {
+		function getDayOfWeek(timestamp){
 			const date = new Date(timestamp * 1000);
-			const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+			const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 			return days[date.getDay()];
 		}
 	});
