@@ -28,66 +28,55 @@
 		}
 		/*large*/
 		@media (min-width: 992px) and (max-width: 1199px){
-			#map{width: 50%; height: 500px; margin: 30px 0 0 50px;}
+			#map{width: 50%; height: 500px; margin: 40px 0 0 50px;}
 			.week{margin: 30px 0 0 15px;}
 			.days{width: 400px; height: 95px; margin: 4px 0;}
 		}
 		/*xlarge*/
 		@media (min-width: 1200px){
 			#map{width: 50%; height: 700px; margin: 50px 30px 0 30px;}
-			.week{margin: 20px 0 0 0;}
+			.week{margin-top: 20px;}
 			.days{width: 100%; height: 115px;margin: 30px 0;}
 		}
 		/* BACKGROUND */
 		body{
-			background-image: url("images/houston.jpeg");
-			background-size: 1600PX;
+			background-color: #274C77;
 		}
 		/* GLOBAL CSS */
 		.row{width: 100%; margin: 0;}
-		.navbar{width: 100%}
 		h1{text-align: center;}
-		.navbar-brand{margin-left: 1em;}
+		.navbar{background-color: #6096BA}
+		.navbar-brand{margin-left: 2em; font-size: 1.2em}
 	</style>
 </head>
 <body>
+
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+
+<nav class="navbar navbar-expand-lg">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#">Houston Weather</a>
-		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+		<a class="navbar-brand" href="#">5 Day Forecast</a>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
-		<div class="collapse navbar-collapse" id="navbarNavDropdown">
-			<ul class="navbar-nav">
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="#">Home</a>
+					<a class="nav-link active" aria-current="page" href="https://github.com/xavimedi/codeup-web-exercises/blob/main/weather_map.html">Source</a>
 				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Music
-					</a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Upcoming Events</a></li>
-						<li><a class="dropdown-item" href="#">Previous Events</a></li>
-						<li><a class="dropdown-item" href="#">Houston's Own</a></li>
-					</ul>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-						Sports
-					</a>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="#">Astros</a></li>
-						<li><a class="dropdown-item" href="#">Rockets</a></li>
-						<li><a class="dropdown-item" href="#">Texans</a></li>
-						<li><a class="dropdown-item" href="#">Dynamo</a></li>
-					</ul>
+
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
 				</li>
 			</ul>
+			<form class="d-flex">
+				<input class="form-control me-2" type="search" placeholder="ZIP Code" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
 		</div>
 	</div>
 </nav>
+
 <div class="row">
 	<!-- BOX FOR MAP -->
 	<div id="map" class="col-xl-5 col-lg-5 col-md-11 col-sm-12"></div>
@@ -140,27 +129,53 @@
 <!-- SCRIPTS -->
 
 <script>
-	let accessToken = OPENWEATHER_KEY;
 	mapboxgl.accessToken = MAPBOX_KEY;
 	let map = new mapboxgl.Map({
 		container: "map",
 		style: "mapbox://styles/mapbox/streets-v9",
 		zoom: 10,
-		center: [-95.36936284974837, 29.760187773613016] //HOUSTON, TX
+		center: [-95.36936284974837, 29.760187773613016]
+	});
+
+	$(document).ready(function() {
+
+		$.get("http://api.openweathermap.org/data/2.5/forecast", {
+			APPID: OPENWEATHER_KEY,
+			lat: 29.76,
+			lon: -95.36,
+			units: "imperial"
+		}).done(function(data) {
+			console.log("5 day forecast", data);
+
+			const todayForecast = data.list[0];
+			updateForecast("#day1", "Today", todayForecast);
+
+			for (let i = 1; i <= 4; i++) {
+				const forecast = data.list[i];
+				const card = $(".days:eq(" + i + ")");
+				const dayOfWeek = getDayOfWeek(forecast.dt);
+				updateForecast(card, dayOfWeek, forecast);
+			}
+		});
+
+		function updateForecast(cardSelector, dayOfWeek, forecast) {
+			const card = $(cardSelector);
+			card.find(".card-title").text(dayOfWeek);
+			card.find(".card-text").html(`
+				Temperature: ${forecast.main.temp}&deg;F
+				Rain Chance: ${forecast.pop}%
+				Humidity: ${forecast.main.humidity}%
+				Wind: ${forecast.wind.speed} mph
+			`);
+		}
+
+		function getDayOfWeek(timestamp) {
+			const date = new Date(timestamp * 1000);
+			const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+			return days[date.getDay()];
+		}
 	});
 </script>
-<script>
-	$.get("http://api.openweathermap.org/data/2.5/forecast", {
-		APPID: OPENWEATHER_KEY,
-		lat:	29.76, //HOUSTON, TX
-		lon:	-95.36,
-		units: "imperial"
-	}).done(function(data) {
-		console.log("5 day forecast", data);
-
-	});
-</script>
-
 
 </body>
 </html>
