@@ -22,29 +22,27 @@
 		/* MEDIA QUERIES */
 		/*medium*/
 		@media (max-width: 991px){
-			#map{content-visibility: hidden;}
-			.week{margin: auto 5%;}
-			.days{width: 95%; height: 150px; margin: 25px;}
+			#map{content-visibility: hidden}
+			.week{margin: auto 5%}
+			.days{width: 95%; height: 150px; margin: 25px}
 		}
 		/*large*/
 		@media (min-width: 992px) and (max-width: 1199px){
-			#map{width: 50%; height: 500px; margin: 20px 0 0 50px;}
-			.week{margin: 30px 0 0 15px;}
-			.days{width: 400px; height: 95px; margin: 4px 0;}
+			#map{width: 50%; height: 500px; margin: 20px 0 0 50px}
+			.week{margin: 30px 0 0 15px}
+			.days{width: 400px; height: 95px; margin: 4px 0}
 		}
 		/*xlarge*/
 		@media (min-width: 1200px){
-			#map{width: 50%; height: 700px; margin: 20px 30px 30px;}
-			.week{margin-top: 20px;}
-			.days{width: 100%; height: 110px;margin: 0 0 35px 0;}
+			#map{width: 50%; height: 700px; margin: 20px 30px 30px}
+			.week{margin-top: 20px}
+			.days{width: 100%; height: 110px;margin: 0 0 35px 0}
 		}
 		/* BACKGROUND */
-		body{
-			background-color: #274C77;
-		}
+		body{background-color: #274C77}
 		/* GLOBAL CSS */
-		.row{width: 100%; margin: 0;}
-		h1{text-align: center;}
+		.row{width: 100%; margin: 0}
+		h1{text-align: center}
 		.navbar{background-color: #6096BA}
 		.navbar-brand{margin-left: 2em; font-size: 1.2em}
 		.dayName{text-align: center}
@@ -78,7 +76,7 @@
 </nav>
 
 <div class="row">
-	<!-- BOX FOR MAP -->
+	<!-- MAPBOX DIV -->
 	<div id="map" class="col-xl-5 col-lg-5 col-md-11"></div>
 
 	<!-- DIVS FOR FORECAST CARDS -->
@@ -129,56 +127,109 @@
 
 <script>
 	mapboxgl.accessToken = MAPBOX_KEY;
+
+	let marker = null;
 	let map = new mapboxgl.Map({
 		container: "map",
 		style: "mapbox://styles/mapbox/satellite-v9",
-		zoom: 9,
-		center: [-95.36936284974837, 29.760187773613016]
+		center: [-95.36936284974837, 29.760187773613016],
+		zoom: 10
 	});
+	/* MOVES MARKER TO CENTER OF MAPBOX WHEN PAGE IS LOADED */
+	map.on("load", function(){
+		addMarker(map.getCenter());
+		updateLocation(map.getCenter().lng, map.getCenter().lat);
+	});
+	/* SETS THE LAT AND LOG OF CENTER TO MAPBOX WHEN USER MOVES THE MAP OR CHANGES CENTER OF MAP BY ZIP CODE INPUT */
+	map.on("moveend", function(){
+		if (marker) {
+			marker.setLngLat(map.getCenter());
+		}
+		updateLocation(map.getCenter().lng, map.getCenter().lat);
+	});
+	/* CREATES THE MARKER FOR THE CENTER OF THE MAP */
+	function addMarker(lngLat){
+		if (marker) {
+			marker.remove();
+		}
+		marker = new mapboxgl.Marker().setLngLat(lngLat).addTo(map);
+	}
+	/* WHEN THE PAGE LOADS, CENTERS MAP AND PULLS WEATHER DATA ON HOUSTON, TX */
+	updateLocation(-95.36936284974837, 29.760187773613016);
 
 	$(document).ready(function(){
+		$("form").submit(function(event){
+			event.preventDefault();
+			let zipCode = $("#zipCodeInput").val();
+			updateLocationByZipCode(zipCode);
+		});
+	});
+	/* UPDATES CENTER TO ZIPCODE FROM SEARCH */
+	function updateLocationByZipCode(zipCode){
+		const geocodingURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zipCode}.json?access_token=${MAPBOX_KEY}`;
 
-		$.get("http://api.openweathermap.org/data/2.5/forecast",{
+		$.get(geocodingURL).done(function(data){
+			let coordinates = data.features[0].center;
+			let longitude = coordinates[0];
+			let latitude = coordinates[1];
+
+			map.setCenter([longitude, latitude]);
+			addMarker([longitude, latitude]);
+			updateLocation(longitude, latitude);
+		})
+	}
+	/* UPDATES WEATHER DATA TO CENTER OF MAP */
+	function updateLocation(longitude, latitude){
+		const weatherURL = "http://api.openweathermap.org/data/2.5/forecast";
+		$.get(weatherURL,{
 			APPID: OPENWEATHER_KEY,
-			lat: 29.76,
-			lon: -95.36,
+			lat: latitude,
+			lon: longitude,
 			units: "imperial"
 		}).done(function(data){
+			let day1Forecast = data.list[0];
+			let day2Forecast = data.list[8];
+			let day3Forecast = data.list[16];
+			let day4Forecast = data.list[24];
+			let day5Forecast = data.list[32];
 
-			const day1Forecast = data.list[0];
-			const day2Forecast = data.list[8];
-			const day3Forecast = data.list[16];
-			const day4Forecast = data.list[24];
-			const day5Forecast = data.list[32];
+			updateForecast("#day1", day1Forecast);
+			updateForecast("#day2", day2Forecast);
+			updateForecast("#day3", day3Forecast);
+			updateForecast("#day4", day4Forecast);
+			updateForecast("#day5", day5Forecast);
+		})
+	}
+	/* POPULATES DATA INTO CARDS BY ID */
+	function updateForecast(elementId, forecast){
+		let temperature = forecast.main.temp;
+		let description = forecast.weather[0].description;
+		let icon = forecast.weather[0].icon;
 
-			updateForecast("#day1", getDayOfWeek(day1Forecast.dt), day1Forecast);
-			updateForecast("#day2", getDayOfWeek(day2Forecast.dt), day2Forecast);
-			updateForecast("#day3", getDayOfWeek(day3Forecast.dt), day3Forecast);
-			updateForecast("#day4", getDayOfWeek(day4Forecast.dt), day4Forecast);
-			updateForecast("#day5", getDayOfWeek(day5Forecast.dt), day5Forecast);
+		let dayName = getDayName(forecast.dt_txt);
 
-		});
-
-		function updateForecast(cardSelector, dayOfWeek, forecast){
-			const card = $(cardSelector);
-			card.find(".card-title").html(`<div class="dayName">${dayOfWeek}</div>`);
-			card.find(".card-text").html(`
-				<div class="row">
-					<div class="col-6">Temperature: ${forecast.main.temp}&deg;F</div>
-					<div class="col-6">Rain Chance: ${forecast.pop}%</div>
-					<div class="col-6">Humidity: ${forecast.main.humidity}%</div>
-					<div class="col-6">Wind: ${forecast.wind.speed} mph</div>
-				</div>
-			`);
-		}
-
-		function getDayOfWeek(timestamp){
-			const date = new Date(timestamp * 1000);
-			const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-			return days[date.getDay()];
-		}
-	});
+		const $element = $(elementId);
+		$element.html(`
+		<div class="card days">
+			<div class="row">
+				<div class="col-9 dayName"><em>${dayName}</em></div>
+				<div class="col-3"><img src="http://openweathermap.org/img/w/${icon}.png"/></div>
+			</div>
+			<div class="row">
+				<div class="col-3">Temperature: ${forecast.main.temp}&deg;F</div>
+				<div class="col-3">Rain Chance: ${forecast.pop}%</div>
+				<div class="col-3">Humidity: ${forecast.main.humidity}%</div>
+				<div class="col-3">Wind: ${forecast.wind.speed} mph</div>
+			</div>
+		</div>
+	`);
+	}
+	/* POPULATES NAME OF DAY TO CARD BY DATA FROM API */
+	function getDayName(weekday){
+		const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+		let date = new Date(weekday);
+		return days[date.getDay()];
+	}
 </script>
-
 </body>
 </html>
