@@ -36,7 +36,7 @@
 		@media (min-width: 1200px){
 			#map{width: 50%; height: 700px; margin: 20px 30px 30px}
 			.week{margin-top: 20px}
-			.days{width: 100%; height: 110px;margin: 0 0 35px 0}
+			.days{width: 600px; height: 112px;margin: 0 0 35px 0}
 		}
 		/* BACKGROUND */
 		body{background-color: #274C77}
@@ -45,7 +45,9 @@
 		h1{text-align: center}
 		.navbar{background-color: #6096BA}
 		.navbar-brand{margin-left: 2em; font-size: 1.2em}
-		.dayName{text-align: center}
+		.dayName{text-align: justify; margin-top: 10px}
+		.weatherPic{}
+		.dayData{margin-top:20px}
 	</style>
 </head>
 <body>
@@ -62,6 +64,9 @@
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item">
 					<a class="nav-link active" target="_blank" href="https://github.com/xavimedi/codeup-web-exercises/blob/main/weather_map.html">Source</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" target="_blank" href="https://docs.mapbox.com/">Documentation</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" target="_blank" href="https://www.youtube.com/@MapboxOfficial/videos">Teachables</a>
@@ -128,6 +133,7 @@
 <script>
 	/* KEY STORED IN JS FILE*/
 	mapboxgl.accessToken = MAPBOX_KEY;
+
 	/*MARKS STARTING LOCATION IN HOUSTON, TX BY LAT/LONG*/
 	let marker = null;
 	let map = new mapboxgl.Map({
@@ -136,11 +142,13 @@
 		center: [-95.36936284974837, 29.760187773613016],
 		zoom: 9
 	});
+
 	/* MOVES MARKER TO CENTER OF MAPBOX WHEN PAGE IS LOADED */
 	map.on("load", function(){
 		addMarker(map.getCenter());
 		updateLocation(map.getCenter().lng, map.getCenter().lat);
 	});
+
 	/* SETS THE LAT AND LOG OF CENTER TO MAPBOX WHEN USER MOVES THE MAP OR CHANGES CENTER OF MAP BY ZIP CODE INPUT */
 	map.on("moveend", function(){
 		if (marker){
@@ -148,6 +156,7 @@
 		}
 		updateLocation(map.getCenter().lng, map.getCenter().lat);
 	});
+
 	/* CREATES THE MARKER FOR THE CENTER OF THE MAP */
 	function addMarker(lngLat){
 		if (marker){
@@ -171,23 +180,25 @@
 		});
 	}
 
+	/* TAKES IN ZIPCODE AND UPDATES LOCATION FOR MAPBOX */
 	function updateLocationByZipCode(zipCode){
 		const geocodingURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + zipCode + ".json?access_token=" + MAPBOX_KEY;
 
 		$.get(geocodingURL).done(function(data){
-				let coordinates = data.features[0].center;
-				let longitude = coordinates[0];
-				let latitude = coordinates[1];
+			let coordinates = data.features[0].center;
+			let longitude = coordinates[0];
+			let latitude = coordinates[1];
 
-				addMarker([longitude, latitude]);
-				updateLocation(longitude, latitude);
-				map.flyTo({
-					center: [longitude, latitude],
-					duration: 6000,
-				});
-				;});
+			addMarker([longitude, latitude]);
+			updateLocation(longitude, latitude);
+			map.flyTo({
+				center: [longitude, latitude],
+				duration: 6000,
+			});
+			;});
 	}
 
+	/* SEARCH FUNCTION TO FIND BY ZIP CODE */
 	$(document).ready(function(){
 		$("form").submit(function(event){
 			event.preventDefault();
@@ -218,6 +229,7 @@
 			updateForecast("#day5", day5Forecast);
 		});
 	}
+
 	/* POPULATES DATA INTO CARDS BY ID */
 	function updateForecast(elementId, forecast){
 		let temperature = forecast.main.temp;
@@ -230,18 +242,19 @@
 		$element.html(`
 		<div class="card days">
 			<div class="row">
-				<div class="col-9 dayName"><em>${dayName}</em></div>
-				<div class="col-3"><img src="http://openweathermap.org/img/w/${icon}.png"/></div>
+				<div class="col-6 dayName"><em>${dayName}</em></div>
+				<div class="col-6 weatherPic"><img src="http://openweathermap.org/img/w/${icon}.png"/></div>
 			</div>
-			<div class="row">
-				<div class="col-3">Temperature: ${forecast.main.temp}&deg;F</div>
-				<div class="col-3">Rain Chance: ${forecast.pop}%</div>
+			<div class="row dayData">
+				<div class="col-3">Temp: ${forecast.main.temp}&deg;F</div>
+				<div class="col-3">Rain: ${forecast.pop}%</div>
 				<div class="col-3">Humidity: ${forecast.main.humidity}%</div>
 				<div class="col-3">Wind: ${forecast.wind.speed} mph</div>
 			</div>
 		</div>
 		`);
 	}
+
 	/* POPULATES NAME OF DAY TO CARD BY DATA FROM API */
 	function getDayName(weekday){
 		const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
