@@ -28,7 +28,8 @@
 		}
 		/*large*/
 		@media (min-width: 992px) and (max-width: 1199px){
-			#map{width: 50%; height: 500px; margin: 20px 0 0 50px}
+			#map{width: 50%;
+				height: 500px; margin: 20px 0 0 50px}
 			.week{margin: 30px 0 0 15px}
 			.days{width: 400px; height: 95px; margin: 4px 0}
 		}
@@ -126,14 +127,15 @@
 <!-- SCRIPTS -->
 
 <script>
+	/* KEY STORED IN JS FILE*/
 	mapboxgl.accessToken = MAPBOX_KEY;
-
+	/*MARKS STARTING LOCATION IN HOUSTON, TX BY LAT/LONG*/
 	let marker = null;
 	let map = new mapboxgl.Map({
 		container: "map",
 		style: "mapbox://styles/mapbox/satellite-v9",
 		center: [-95.36936284974837, 29.760187773613016],
-		zoom: 10
+		zoom: 9
 	});
 	/* MOVES MARKER TO CENTER OF MAPBOX WHEN PAGE IS LOADED */
 	map.on("load", function(){
@@ -142,20 +144,50 @@
 	});
 	/* SETS THE LAT AND LOG OF CENTER TO MAPBOX WHEN USER MOVES THE MAP OR CHANGES CENTER OF MAP BY ZIP CODE INPUT */
 	map.on("moveend", function(){
-		if (marker) {
+		if (marker){
 			marker.setLngLat(map.getCenter());
 		}
 		updateLocation(map.getCenter().lng, map.getCenter().lat);
 	});
 	/* CREATES THE MARKER FOR THE CENTER OF THE MAP */
 	function addMarker(lngLat){
-		if (marker) {
+		if (marker){
 			marker.remove();
 		}
-		marker = new mapboxgl.Marker().setLngLat(lngLat).addTo(map);
+		marker = new mapboxgl.Marker({
+			draggable: true
+		}).setLngLat(lngLat).addTo(map);
+
+		/* ALLOWS THE MARKER TO DRAG, MOVE MAP*/
+		marker.on("dragend", function(){
+			let newMarker = marker.getLngLat();
+			marker.setLngLat(newMarker);
+		/* FLYTO ANIMATION */
+			map.flyTo({
+				center: newMarker,
+				zoom: 10,
+				duration: 3000
+			});
+			updateLocation(newMarker.lng, newMarker.lat);
+		});
 	}
-	/* WHEN THE PAGE LOADS, CENTERS MAP AND PULLS WEATHER DATA ON HOUSTON, TX */
-	updateLocation(-95.36936284974837, 29.760187773613016);
+
+	function updateLocationByZipCode(zipCode){
+		const geocodingURL = "https://api.mapbox.com/geocoding/v5/mapbox.places/" + zipCode + ".json?access_token=" + MAPBOX_KEY;
+
+		$.get(geocodingURL).done(function(data){
+				let coordinates = data.features[0].center;
+				let longitude = coordinates[0];
+				let latitude = coordinates[1];
+
+				addMarker([longitude, latitude]);
+				updateLocation(longitude, latitude);
+				map.flyTo({
+					center: [longitude, latitude],
+					duration: 6000,
+				});
+				;});
+	}
 
 	$(document).ready(function(){
 		$("form").submit(function(event){
@@ -164,20 +196,7 @@
 			updateLocationByZipCode(zipCode);
 		});
 	});
-	/* UPDATES CENTER TO ZIPCODE FROM SEARCH */
-	function updateLocationByZipCode(zipCode){
-		const geocodingURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${zipCode}.json?access_token=${MAPBOX_KEY}`;
 
-		$.get(geocodingURL).done(function(data){
-			let coordinates = data.features[0].center;
-			let longitude = coordinates[0];
-			let latitude = coordinates[1];
-
-			map.setCenter([longitude, latitude]);
-			addMarker([longitude, latitude]);
-			updateLocation(longitude, latitude);
-		})
-	}
 	/* UPDATES WEATHER DATA TO CENTER OF MAP */
 	function updateLocation(longitude, latitude){
 		const weatherURL = "http://api.openweathermap.org/data/2.5/forecast";
@@ -198,7 +217,7 @@
 			updateForecast("#day3", day3Forecast);
 			updateForecast("#day4", day4Forecast);
 			updateForecast("#day5", day5Forecast);
-		})
+		});
 	}
 	/* POPULATES DATA INTO CARDS BY ID */
 	function updateForecast(elementId, forecast){
@@ -207,7 +226,7 @@
 		let icon = forecast.weather[0].icon;
 
 		let dayName = getDayName(forecast.dt_txt);
-
+		/* POPULATES HTML INTO CARDS BY ELEMENTID */
 		const $element = $(elementId);
 		$element.html(`
 		<div class="card days">
@@ -222,7 +241,7 @@
 				<div class="col-3">Wind: ${forecast.wind.speed} mph</div>
 			</div>
 		</div>
-	`);
+		`);
 	}
 	/* POPULATES NAME OF DAY TO CARD BY DATA FROM API */
 	function getDayName(weekday){
@@ -230,6 +249,7 @@
 		let date = new Date(weekday);
 		return days[date.getDay()];
 	}
+
 </script>
 </body>
 </html>
