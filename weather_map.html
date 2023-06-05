@@ -150,14 +150,6 @@
 		updateLocation(map.getCenter().lng, map.getCenter().lat);
 	});
 
-	/* SETS THE LAT AND LOG OF CENTER TO MAPBOX WHEN USER MOVES THE MAP OR CHANGES CENTER OF MAP BY ZIP CODE INPUT */
-	map.on("moveend", function(){
-		if (marker){
-			marker.setLngLat(map.getCenter());
-		}
-		updateLocation(map.getCenter().lng, map.getCenter().lat);
-	});
-
 	/* CREATES THE MARKER FOR THE CENTER OF THE MAP */
 	function addMarker(lngLat){
 		if (marker){
