@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Weather of Houston</title>
+	<title>5 Day Forecast</title>
 	<!-- MAPBOX CSS -->
 	<link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css" rel="stylesheet"/>
 	<!-- MAPBOX JS -->
@@ -56,7 +56,8 @@
 
 <nav class="navbar navbar-expand-lg">
 	<div class="container-fluid">
-		<a class="navbar-brand" href="#">5 Day Forecast</a>
+		<a class="navbar-brand" href="#"><span id="cityName"></span></a>
+
 		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -227,6 +228,11 @@
 			updateForecast("#day3", day3Forecast);
 			updateForecast("#day4", day4Forecast);
 			updateForecast("#day5", day5Forecast);
+
+			let cityName = data.city.name
+			/* POPULATES CITY NAME INTO NAVBAR BY ELEMENT ID*/
+			const $cityNameElement = document.getElementById('cityName');
+			$cityNameElement.innerText = `5 Day Forecast of ${cityName}`;
 		});
 	}
 
@@ -237,7 +243,7 @@
 		let icon = forecast.weather[0].icon;
 
 		let dayName = getDayName(forecast.dt_txt);
-		/* POPULATES HTML INTO CARDS BY ELEMENTID */
+		/* POPULATES HTML INTO CARDS BY ELEMENT ID */
 		const $element = $(elementId);
 		$element.html(`
 		<div class="card days">
