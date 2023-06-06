@@ -188,7 +188,7 @@
 				center: [longitude, latitude],
 				duration: 6000,
 			});
-			;});
+		});
 	}
 
 	/* SEARCH FUNCTION TO FIND BY ZIP CODE */
@@ -214,6 +214,7 @@
 			let day3Forecast = data.list[16];
 			let day4Forecast = data.list[24];
 			let day5Forecast = data.list[32];
+			console.log(data);
 
 			updateForecast("#day1", day1Forecast);
 			updateForecast("#day2", day2Forecast);
