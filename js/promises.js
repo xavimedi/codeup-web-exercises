@@ -41,6 +41,34 @@ function lastCommit(username){
 }
 
 
+//David's Walkthrough
+
+fetch("https://api.github.com/users/davidandstephens/events/public", {headers: {'Authorization': `token ${GITHUB_KEY}`}})
+	.then(resp => resp.json())
+	.then(data =>{
+		// console.log(data);
+		for(let event of data){
+			if (event.type === "PushEvent"){
+				console.log(event.created_at);
+				return event.payload.commits[0].url;
+			}
+		}
+	})
+	.then(url => fetch(url, {headers: {'Authorization': `token ${GITHUB_KEY}`}}))
+	.then(resp => resp.json())
+	.then(data => console.log(new Date (data.commit.author.date)));
+
+const wait = ((milliseconds) =>{
+	return new Promise((resolve, reject)=>{
+		setTimeout(()=>{
+			resolve(`This will show up in ${milliseconds/1000} second(s).`);
+		}, milliseconds);
+	});
+});
+
+wait(3000).then(msg => console.log(msg));
+wait(6000).then(msg => console.log(msg));
+
 // console.log(fetch(userPromise, {headers: {'Authorization': 'token GITHUB_KEY'}}));
 
 
