@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>RESTful API Requests</title>
+</head>
+<body>
+<script>
+    fetch("https://third-repeated-saffron.glitch.me/books").then(resp => resp.json()).then(data=>console.log(data));
+    fetch("https://third-repeated-saffron.glitch.me/books/3").then(resp => resp.json()).then(data=>console.log(data));
+
+    const newBook = {title: "Do Androids Dream of Electric Sheep?", author: "Phillip K. Dick"};
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newBook)
+    }
+    // fetch("https://third-repeated-saffron.glitch.me/books", options).then(() => fetch("https://third-repeated-saffron.glitch.me/books")).then(resp => resp.json()).then(data => console.log(data))
+
+    fetch("https://third-repeated-saffron.glitch.me/books/1", {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({title: "Notre-Dame de Paris"})
+    }).then(resp => resp.json()).then(data => console.log(data))
+
+    // fetch("https://third-repeated-saffron.glitch.me/books/1", {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({title: "Notre-Dame de Paris"})
+    // }).then(resp => resp.json()).then(data => console.log(data))
+
+    fetch("https://third-repeated-saffron.glitch.me/books/5", {
+		method: 'DELETE'
+	}).then(resp => resp.json()).then(data => console.log(data))
+
+</script>
+</body>
+</html>
